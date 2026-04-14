@@ -4,31 +4,37 @@ const redisClient = require('../database/redisClient');
 const axios = require('axios');
 
 // Workflow execution queue
-const workflowQueue = new Queue('workflow-execution', {
-  redis: {
-    host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT),
-    password: process.env.REDIS_PASSWORD || undefined,
-  },
-});
+const workflowQueue = process.env.REDIS_URL 
+  ? new Queue('workflow-execution', process.env.REDIS_URL)
+  : new Queue('workflow-execution', {
+      redis: {
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT),
+        password: process.env.REDIS_PASSWORD || undefined,
+      },
+    });
 
 // Forecast processing queue
-const forecastQueue = new Queue('forecast-processing', {
-  redis: {
-    host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT),
-    password: process.env.REDIS_PASSWORD || undefined,
-  },
-});
+const forecastQueue = process.env.REDIS_URL
+  ? new Queue('forecast-processing', process.env.REDIS_URL)
+  : new Queue('forecast-processing', {
+      redis: {
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT),
+        password: process.env.REDIS_PASSWORD || undefined,
+      },
+    });
 
 // Alert processing queue
-const alertQueue = new Queue('alert-processing', {
-  redis: {
-    host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT),
-    password: process.env.REDIS_PASSWORD || undefined,
-  },
-});
+const alertQueue = process.env.REDIS_URL
+  ? new Queue('alert-processing', process.env.REDIS_URL)
+  : new Queue('alert-processing', {
+      redis: {
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT),
+        password: process.env.REDIS_PASSWORD || undefined,
+      },
+    });
 
 // Workflow processor
 workflowQueue.process(async (job) => {
