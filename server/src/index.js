@@ -30,7 +30,9 @@ const server = http.createServer(app);
 // Socket.IO setup
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: function (origin, callback) {
+      callback(null, origin || true);
+    },
     credentials: true,
   },
 });
@@ -38,7 +40,10 @@ const io = new Server(server, {
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    // Dynamically allow any connected origin to prevent Vercel CORS blocking
+    callback(null, origin || true);
+  },
   credentials: true,
 }));
 app.use(morgan('dev'));
