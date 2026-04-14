@@ -7,7 +7,7 @@ const generateToken = (user) => {
   return jwt.sign(
     { userId: user.user_id, orgId: user.org_id, role: user.role, email: user.email },
     process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN }
+    { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
   );
 };
 
@@ -39,7 +39,7 @@ exports.signup = async (req, res) => {
     const token = jwt.sign(
       { userId: uuidv4(), orgId, role: 'admin', email },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
     );
 
     res.status(201).json({
