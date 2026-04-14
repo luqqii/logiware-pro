@@ -1,0 +1,37 @@
+databases:
+  - name: logiware-db
+    databaseName: logiware_pro
+    user: logiware_user
+    plan: free
+
+services:
+  - type: redis
+    name: logiware-redis
+    plan: free
+    ipAllowList: [] # empty means all services in this render account can access it
+
+  - type: web
+    name: logiware-api
+    env: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: CLIENT_URL
+        value: "https://logiware-frontend.vercel.app" # UPDATE THIS with your actual Vercel URL
+      - key: MONGODB_URI
+        sync: false # You must set this manually in the Render dashboard after deploy
+      - key: DATABASE_URL
+        fromDatabase:
+          name: logiware-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: logiware-redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true

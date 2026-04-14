@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ShipStation-inspired global styles */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #120B3C;
+    background-color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    color: #120B3C;
+  }
+
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.25rem; }
+}
+
+@layer components {
+  /* Primary CTA Button - ShipStation style */
+  .btn-primary {
+    @apply bg-primary text-navy font-semibold rounded-pill px-6 py-2.5 
+           transition-all duration-200 hover:bg-primary-hover 
+           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  /* Secondary/Outline Button */
+  .btn-secondary {
+    @apply bg-transparent border border-white text-white font-medium rounded-pill px-5 py-2 
+           transition-all duration-200 hover:bg-white/10
+           focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2;
+  }
+
+  /* Outline Button for light backgrounds */
+  .btn-outline {
+    @apply bg-transparent border border-navy text-navy font-medium rounded-pill px-5 py-2 
+           transition-all duration-200 hover:bg-navy hover:text-white
+           focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2;
+  }
+
+  /* Ghost Button */
+  .btn-ghost {
+    @apply bg-transparent text-accent font-medium px-4 py-2
+           transition-all duration-200 hover:text-accent-hover
+           focus:outline-none;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white rounded-card shadow-card p-6 transition-shadow duration-200 hover:shadow-card-hover;
+  }
+
+  /* Form input */
+  .form-input {
+    @apply w-full border border-surface-border rounded-lg px-4 py-2.5 
+           text-text-primary placeholder-text-light
+           focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
+           transition-all duration-200;
+  }
+
+  /* Badge styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply bg-green-100 text-green-800;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 text-red-800;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800;
+  }
+
+  /* Table styles */
+  .table-container {
+    @apply overflow-x-auto rounded-card border border-surface-border;
+  }
+
+  .table {
+    @apply min-w-full divide-y divide-surface-border;
+  }
+
+  .table th {
+    @apply px-6 py-3 text-left text-xs font-semibold text-text-muted uppercase tracking-wider bg-surface-light-gray;
+  }
+
+  .table td {
+    @apply px-6 py-4 text-sm text-text-primary;
+  }
+
+  .table tbody tr {
+    @apply hover:bg-surface-light-gray transition-colors duration-150;
+  }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-text-muted 
+           hover:bg-navy-light/50 hover:text-white transition-all duration-200;
+  }
+
+  .nav-item-active {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg bg-navy-light text-white;
+  }
+
+  /* KPI card */
+  .kpi-card {
+    @apply bg-white rounded-card shadow-card p-5 
+           hover:shadow-card-hover transition-all duration-200;
+  }
+
+  .kpi-value {
+    @apply text-2xl font-bold text-navy;
+  }
+
+  .kpi-label {
+    @apply text-sm text-text-muted mt-1;
+  }
+
+  .kpi-change {
+    @apply text-xs font-medium mt-2;
+  }
+
+  .kpi-change-up {
+    @apply text-severity-success;
+  }
+
+  .kpi-change-down {
+    @apply text-severity-critical;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+}
